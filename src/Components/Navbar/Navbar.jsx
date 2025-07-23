@@ -44,16 +44,6 @@ export default function Navbar(props) {
                   People
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="About">
-                  About
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="Networks">
-                  Networks
-                </Link>
-              </li>
             </ul>
           ) : (
             ""

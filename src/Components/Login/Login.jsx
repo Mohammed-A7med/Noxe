@@ -71,7 +71,7 @@ export default function Login(props) {
         className="form-control my-2"
         type="email"
         name="email"
-        defaultValue={user.email}
+        value={user.email}
       />
       <label className="mt-2" htmlFor="password">
         Password:
@@ -81,7 +81,7 @@ export default function Login(props) {
         className="form-control my-2"
         type="password"
         name="password"
-        defaultValue={user.password}
+        value={user.password}
       />
       <div className="btn-register d-flex justify-content-end my-4">
         <button className="btn btn-info" type="submit" disabled={isLoading}>
