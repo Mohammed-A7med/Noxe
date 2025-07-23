@@ -8,8 +8,8 @@ export default function Login(props) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    email: "",
-    password: "",
+    email: "mo.ahmed68@gmail.com",
+    password: "moa123",
   });
 
   function getFormValue(e) {
