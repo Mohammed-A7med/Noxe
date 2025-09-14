@@ -1,97 +1,84 @@
-import Joi from "joi";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { doSignInWithEmailAndPassword } from "../Firebase/auth";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Login(props) {
-  const [errorsList, setErrorsList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+import { doSignInWithEmailAndPassword } from "../Firebase/auth";
+import { emailValidation, PasswordValidation } from "../Constant/VALIDATIONS";
+
+export default function Login({ saveUserData }) {
   const navigate = useNavigate();
-  const [user, setUser] = useState({
-    email: "mo.ahmed68@gmail.com",
-    password: "moa123",
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      email: "mohamedahmedkhalaf68@gmail.com",
+      password: "@Password321!",
+    },
   });
 
-  function getFormValue(e) {
-    const { name, value } = e.target;
-    setUser((prevState) => ({ ...prevState, [name]: value }));
-  }
+  async function onSubmit(data) {
+    try {
+      const response = await doSignInWithEmailAndPassword(
+        data.email,
+        data.password
+      );
 
-  async function submitFormData(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    const validationResponse = validateForm();
-    if (validationResponse.error) {
-      setErrorsList(validationResponse.error.details);
-      setIsLoading(false);
-    } else {
-      setErrorsList([]);
-      try {
-        await doSignInWithEmailAndPassword(user.email, user.password);
-        localStorage.setItem('userToken' ,JSON.stringify(user.email));
-        props.saveUserData();
-        goToHome();
-      } catch (error) {
-        setErrorsList([{ message: error.message }]);
-      }
-      setIsLoading(false);
+      // Save Firebase token or UID
+      localStorage.setItem("userToken", response.user.accessToken);
+
+      saveUserData();
+      navigate("/Home");
+    } catch (error) {
+      console.error("Login failed:", error.message);
     }
   }
 
-  function validateForm() {
-    const schema = Joi.object({
-      email: Joi.string()
-        .email({ tlds: { allow: ["com", "net"] } })
-        .min(3)
-        .required(),
-      password: Joi.string()
-        .pattern(new RegExp(/^[a-zA-Z]{1,3}[0-9]{3}/))
-        .required(),
-    });
-
-    return schema.validate(user, { abortEarly: false });
-  }
-
-  function goToHome() {
-    navigate("/Home");
-  }
-
   return (
-    <form className="w-75 mx-auto" onSubmit={submitFormData}>
-      {errorsList.map((error, index) => (
-        <div key={index} className="alert alert-danger">
-          {error.message}
-        </div>
-      ))}
+    <form className="w-75 mx-auto" onSubmit={handleSubmit(onSubmit)}>
       <label className="mt-5" htmlFor="email">
         Email:
       </label>
-      <input
-        onChange={getFormValue}
-        className="form-control my-2"
-        type="email"
-        name="email"
-        value={user.email}
-      />
+      <div className="my-3">
+        <input
+          id="email"
+          className="form-control my-2"
+          type="email"
+          aria-label="email"
+          {...register("email", emailValidation)}
+        />
+        {errors.email && (
+          <span className="text-danger my-2">{errors.email.message}</span>
+        )}
+      </div>
+
       <label className="mt-2" htmlFor="password">
         Password:
       </label>
       <input
-        onChange={getFormValue}
+        id="password"
         className="form-control my-2"
         type="password"
-        name="password"
-        value={user.password}
+        aria-label="password"
+        {...register("password", PasswordValidation)}
       />
-      <div className="btn-register d-flex justify-content-end my-4">
-        <button className="btn btn-info" type="submit" disabled={isLoading}>
-          {isLoading ? (
+      {errors.password && (
+        <span className="text-danger my-2">{errors.password.message}</span>
+      )}
+
+      <div className="btn-register d-flex justify-content-end gap-3 my-4">
+        <Link to="/Register" className="btn text-white border border-white">
+          Register
+        </Link>
+        <button className="btn btn-info" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
             <span>
               please wait...{" "}
               <i className="fa-solid fa-spinner fa-spin mx-1"></i>
             </span>
           ) : (
-            "login"
+            "Login"
           )}
         </button>
       </div>
