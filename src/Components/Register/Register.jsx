@@ -1,131 +1,148 @@
-import Joi from "joi";
-import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+
+import { emailValidation, PasswordValidation } from "../Constant/VALIDATIONS";
 import { doCreateUserWithEmailAndPassword } from "../Firebase/auth";
 
 export default function Register() {
-  const [errorsList, setErrorsList] = useState([]);
-  const [isRegister, setIsRegister] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [user, setUser] = useState({
-    first_Name: "",
-    last_Name: "",
-    Age: "",
-    email: "",
-    password: "",
-  });
-
   const navigate = useNavigate();
 
-  async function submitFormData(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    const validationResponse = validateForm();
-    if (validationResponse.error) {
-      setErrorsList(validationResponse.error.details);
-      setIsLoading(false);
-    } else {
-      setErrorsList([]); 
-      try {
-        await doCreateUserWithEmailAndPassword(user.email, user.password);
-        setIsRegister(true);
-        goToLogin(user);
-      } catch (error) {
-        setErrorsList([{ message: error.message }]);
-        setIsRegister(false);
-      }
-      setIsLoading(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      age: "",
+      email: "",
+      password: "",
+    },
+  });
+
+  async function onSubmit(data) {
+    try {
+      await doCreateUserWithEmailAndPassword(data.email, data.password);
+      navigate("/Login");
+    } catch (error) {
+      console.error("Registration failed:", error.message);
     }
   }
 
-  function getFormValue(e) {
-    const { name, value } = e.target;
-    setUser((prevState) => ({ ...prevState, [name]: value }));
-  }
-
-  function validateForm() {
-    const schema = Joi.object({
-      first_Name: Joi.string().alphanum().min(3).max(15).required(),
-      last_Name: Joi.string().alphanum().min(3).max(15).required(),
-      Age: Joi.number().integer().min(16).max(120).required(),
-      email: Joi.string()
-        .email({ tlds: { allow: ["com", "net"] } })
-        .min(3)
-        .required(),
-      password: Joi.string()
-        .pattern(new RegExp(/^[a-zA-Z]{1,3}[0-9]{3}/))
-        .required(),
-    });
-
-    return schema.validate(user, { abortEarly: false });
-  }
-
-  function goToLogin(userInfo) {
-    navigate("/Login", { state: { userInfo } });
-  }
-
   return (
-    <form className="w-75 mx-auto" onSubmit={submitFormData}>
+    <form className="w-75 mx-auto" onSubmit={handleSubmit(onSubmit)}>
       <h2>Registration Form</h2>
-      {errorsList.map((error, index) => (
-        <div key={index} className="alert alert-danger">
-          {error.message}
-        </div>
-      ))}
-      <label className="mt-4" htmlFor="first_Name">
+
+      {/* First Name */}
+      <label className="mt-4" htmlFor="firstName">
         First Name:
       </label>
-      <input
-        onChange={getFormValue}
-        className="form-control my-2"
-        type="text"
-        name="first_Name"
-      />
+      <div className="my-3">
+        <input
+          id="firstName"
+          className="form-control my-2"
+          type="text"
+          {...register("firstName", {
+            required: "First Name is required",
+            pattern: {
+              value: /^[A-Za-z]{3,}$/,
+              message: "Please enter a valid Name",
+            },
+          })}
+        />
+        {errors.firstName && (
+          <span className="text-danger my-2">{errors.firstName.message}</span>
+        )}
+      </div>
 
-      <label className="mt-2" htmlFor="last_Name">
+      {/* Last Name */}
+      <label className="mt-2" htmlFor="lastName">
         Last Name:
       </label>
-      <input
-        onChange={getFormValue}
-        className="form-control my-2"
-        type="text"
-        name="last_Name"
-      />
+      <div className="my-3">
+        <input
+          id="lastName"
+          className="form-control my-2"
+          type="text"
+          {...register("lastName", {
+            required: "Last Name is required",
+            pattern: {
+              value: /^[A-Za-z]{3,}$/,
+              message: "Please enter a valid Name",
+            },
+          })}
+        />
+        {errors.lastName && (
+          <span className="text-danger my-2">{errors.lastName.message}</span>
+        )}
+      </div>
 
-      <label className="mt-2" htmlFor="Age">
+      {/* Age */}
+      <label className="mt-2" htmlFor="age">
         Age:
       </label>
-      <input
-        onChange={getFormValue}
-        className="form-control my-2"
-        type="number"
-        name="Age"
-      />
+      <div className="my-3">
+        <input
+          id="age"
+          className="form-control my-2"
+          type="number"
+          {...register("age", {
+            required: "Age is required",
+            min: {
+              value: 16,
+              message: "Age must be at least 16",
+            },
+            max: {
+              value: 150,
+              message: "Age must be less than 150",
+            },
+          })}
+        />
+        {errors.age && (
+          <span className="text-danger my-2">{errors.age.message}</span>
+        )}
+      </div>
 
+      {/* Email */}
       <label className="mt-2" htmlFor="email">
         Email:
       </label>
-      <input
-        onChange={getFormValue}
-        className="form-control my-2"
-        type="email"
-        name="email"
-      />
+      <div className="my-3">
+        <input
+          id="email"
+          className="form-control my-2"
+          type="email"
+          {...register("email", emailValidation)}
+        />
+        {errors.email && (
+          <span className="text-danger my-2">{errors.email.message}</span>
+        )}
+      </div>
 
+      {/* Password */}
       <label className="mt-2" htmlFor="password">
         Password:
       </label>
-      <input
-        onChange={getFormValue}
-        className="form-control my-2"
-        type="password"
-        name="password"
-      />
+      <div className="my-3">
+        <input
+          id="password"
+          className="form-control my-2"
+          type="password"
+          {...register("password", PasswordValidation)}
+        />
+        {errors.password && (
+          <span className="text-danger my-2">{errors.password.message}</span>
+        )}
+      </div>
+
+      {/* Submit */}
       <div className="btn-register d-flex justify-content-end my-4">
-        <button className="btn btn-info" type="submit" disabled={isLoading}>
-          {isLoading ? (
+        <button className="btn btn-info" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
             <span>
-              please wait... <i className="fa-solid fa-spinner fa-spin mx-1"></i>
+              please wait...{" "}
+              <i className="fa-solid fa-spinner fa-spin mx-1"></i>
             </span>
           ) : (
             "Register"
