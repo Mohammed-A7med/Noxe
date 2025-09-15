@@ -16,3 +16,25 @@ export const PasswordValidation = {
       "Password must be at least 4 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character",
   },
 };
+
+export const NameValidation = (text) => {
+  return {
+    required: `${text} Name is required`,
+    pattern: {
+      value: /^[A-Za-z]{3,}$/,
+      message: "Please enter a valid Name",
+    },
+  };
+};
+
+export const AgeValidation ={
+  required: "Age is required",
+  min: {
+    value: 16,
+    message: "Age must be at least 16",
+  },
+  max: {
+    value: 99,
+    message: "Age must be less than 100",
+  },
+}
