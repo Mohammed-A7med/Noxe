@@ -10,6 +10,7 @@ import {
 import { doCreateUserWithEmailAndPassword } from "../../Firebase/auth";
 import AuthLayout from "../../Layouts/AuthLayout";
 import FormField from "../../Ui/FormField";
+import SpinnerIcon from "../../Ui/SpinnerIcon";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ export default function Register() {
             {isSubmitting ? (
               <span>
                 please wait...{" "}
-                <i className="fa-solid fa-spinner fa-spin mx-1"></i>
+                <SpinnerIcon/>
               </span>
             ) : (
               "Register"

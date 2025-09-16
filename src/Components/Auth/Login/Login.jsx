@@ -8,6 +8,7 @@ import {
 } from "../../Constant/VALIDATIONS";
 import FormField from "../../Ui/FormField";
 import AuthLayout from "../../Layouts/AuthLayout";
+import SpinnerIcon from "../../Ui/SpinnerIcon";
 
 export default function Login({ saveUserData }) {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ export default function Login({ saveUserData }) {
             {isSubmitting ? (
               <span>
                 please wait...{" "}
-                <i className="fa-solid fa-spinner fa-spin mx-1"></i>
+                <SpinnerIcon/>
               </span>
             ) : (
               "Login"
