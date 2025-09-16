@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Styles from "./Navbar.module.css";
-
+import FacebookIcon from "../Ui/FacebookIcon";
+import SpotifyIcon from "../Ui/SpotifyIcon";
+import InstagramIcon from "../Ui/InstagramIcon";
+import YoutubeIcon from "../Ui/YoutubeIcon";
 
 export default function Navbar(props) {
   return (
@@ -50,15 +53,15 @@ export default function Navbar(props) {
           )}
 
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <div className="navbar-icons d-flex align-items-center">
-              <i className="fa-brands mx-2 fa-facebook"></i>
-              <i className="fa-brands mx-2 fa-spotify"></i>
-              <i className="fa-brands mx-2 fa-instagram"></i>
-              <i className="fa-brands mx-2 fa-youtube"></i>
+            <div className="navbar-icons d-flex align-items-center gap-2">
+              <FacebookIcon />
+              <SpotifyIcon/>
+              <InstagramIcon/>
+              <YoutubeIcon/>
             </div>
             {props.userData ? (
               <li className="nav-item">
-                <a onClick={props.Logout} className="nav-link" >
+                <a onClick={props.Logout} className="nav-link">
                   Logout
                 </a>
               </li>
