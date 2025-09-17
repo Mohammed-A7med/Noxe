@@ -1,8 +1,14 @@
 import React, { useContext } from 'react'
 import { trendingContext } from '../Context/Store';
+import Loading from '../Loading/Loading';
 
 export default function Tvshows() {
-  let {trendingTvshows , baseUrlImg , goToDetails} =useContext(trendingContext);
+  let {trendingTvshows , baseUrlImg , goToDetails , isLoading} =useContext(trendingContext);
+
+  if(isLoading){
+    return <Loading/>
+  }
+
   return (
     <div className="row">
         <div className="col-md-4">
