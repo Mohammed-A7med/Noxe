@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
 import { trendingContext } from "../Context/Store";
+import Loading from "../Loading/Loading";
 
 export default function Home() {
- let {trendingMovies, trendingTvshows, trendingPeople, baseUrlImg , goToDetails} = useContext(trendingContext);
+ let {trendingMovies, trendingTvshows, trendingPeople, baseUrlImg , goToDetails , isLoading} = useContext(trendingContext);
+  
+  if (isLoading){
+    return <Loading/>
+  }
   
   return (
     <>
