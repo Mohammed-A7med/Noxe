@@ -1,18 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 import Styles from "./Navbar.module.css";
 import FacebookIcon from "../Ui/FacebookIcon";
 import SpotifyIcon from "../Ui/SpotifyIcon";
 import InstagramIcon from "../Ui/InstagramIcon";
 import YoutubeIcon from "../Ui/YoutubeIcon";
 
-export default function Navbar(props) {
+export default function Navbar({ userData, Logout }) {
   return (
-    <nav className={`navbar navbar-expand-lg ${Styles.bgColor}`}>
+    <nav className={`navbar navbar-expand-lg ${Styles.bgColor} sticky-top`}>
       <div className="container-fluid">
-        <Link className="navbar-brand fw-bolder" to="">
+        <NavLink className="navbar-brand fw-bolder" to="/">
           NOXE
-        </Link>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -25,57 +26,85 @@ export default function Navbar(props) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {props.userData ? (
+          {userData && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="Home">
+                <NavLink
+                  to="/Home"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? Styles.active : ""}`
+                  }
+                >
                   Home
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="Movies">
+                <NavLink
+                  to="/Movies"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? Styles.active : ""}`
+                  }
+                >
                   Movies
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="Tvshows">
+                <NavLink
+                  to="/Tvshows"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? Styles.active : ""}`
+                  }
+                >
                   Tv show
-                </Link>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="People">
+                <NavLink
+                  to="/People"
+                  className={({ isActive }) =>
+                    `nav-link ${isActive ? Styles.active : ""}`
+                  }
+                >
                   People
-                </Link>
+                </NavLink>
               </li>
             </ul>
-          ) : (
-            ""
           )}
 
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <div className="navbar-icons d-flex align-items-center gap-2">
               <FacebookIcon />
-              <SpotifyIcon/>
-              <InstagramIcon/>
-              <YoutubeIcon/>
+              <SpotifyIcon />
+              <InstagramIcon />
+              <YoutubeIcon />
             </div>
-            {props.userData ? (
+            {userData ? (
               <li className="nav-item">
-                <a onClick={props.Logout} className="nav-link">
+                <button onClick={Logout} className="nav-link">
                   Logout
-                </a>
+                </button>
               </li>
             ) : (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="Login">
+                  <NavLink
+                    to="/Login"
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "Styles.active" : ""}`
+                    }
+                  >
                     Login
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="Register">
+                  <NavLink
+                    to="/Register"
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "Styles.active" : ""}`
+                    }
+                  >
                     Register
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             )}
