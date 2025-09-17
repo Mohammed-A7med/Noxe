@@ -1,11 +1,15 @@
-.bgColor{
-    background-color: rgba(36,186,239,.6);
+.bgColor {
+  background-color: #108ebb;
 }
 
-li{
-    font-size: 20px;
+li {
+  font-size: 20px;
 }
 
 li a {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.active {
+  color: whitesmoke !important;
 }
