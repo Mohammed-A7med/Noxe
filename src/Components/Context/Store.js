@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export let trendingContext = createContext(0);
+
 export default function TrendingContextProvider(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -12,17 +13,12 @@ export default function TrendingContextProvider(props) {
   const navigate = useNavigate();
 
   async function getTrindingItems(mediaType, callBack) {
-    try {
-      let { data } = await axios.get(
-        `https://api.themoviedb.org/3/trending/${mediaType}/week?api_key=${
-          import.meta.env.VITE_TMDB_API_KEY
-        }`
-      );
-      callBack(data.results);
-    } catch (error) {
-      console.error(`Error fetching ${mediaType}:`, error);
-    }
+    let { data } = await axios.get(
+      `https://api.themoviedb.org/3/trending/${mediaType}/week?api_key=70cc0ca46558d5eb93d0ecb9b437dd6b`
+    );
+    callBack(data.results);
   }
+
   useEffect(() => {
     async function fetchAllTrending() {
       setIsLoading(true);
@@ -49,7 +45,7 @@ export default function TrendingContextProvider(props) {
         trendingPeople,
         baseUrlImg,
         goToDetails,
-        isLoading
+        isLoading,
       }}
     >
       {props.children}
