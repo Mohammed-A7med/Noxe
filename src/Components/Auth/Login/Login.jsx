@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import { doSignInWithEmailAndPassword } from "../../Firebase/auth";
 import {
@@ -35,9 +36,10 @@ export default function Login({ saveUserData }) {
       localStorage.setItem("userToken", response.user.accessToken);
 
       saveUserData();
+      toast.success("You have successfully logged in.");
       navigate("/Home");
     } catch (error) {
-      console.error("Login failed:", error.message);
+      toast.error("Login failed. Please try again.");
     }
   }
 
@@ -73,8 +75,7 @@ export default function Login({ saveUserData }) {
           >
             {isSubmitting ? (
               <span>
-                please wait...{" "}
-                <SpinnerIcon/>
+                please wait... <SpinnerIcon />
               </span>
             ) : (
               "Login"
