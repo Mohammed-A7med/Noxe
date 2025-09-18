@@ -2,10 +2,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import Styles from "./Navbar.module.css";
-import FacebookIcon from "../Ui/FacebookIcon";
-import SpotifyIcon from "../Ui/SpotifyIcon";
-import InstagramIcon from "../Ui/InstagramIcon";
-import YoutubeIcon from "../Ui/YoutubeIcon";
+import FacebookIcon from "../Icons/FacebookIcon";
+import SpotifyIcon from "../Icons/SpotifyIcon";
+import InstagramIcon from "../Icons/InstagramIcon";
+import YoutubeIcon from "../Icons/YoutubeIcon";
 
 export default function Navbar({ userData, Logout }) {
   return (
