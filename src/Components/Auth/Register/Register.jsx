@@ -11,7 +11,7 @@ import {
 import { doCreateUserWithEmailAndPassword } from "../../Firebase/auth";
 import AuthLayout from "../../Layouts/AuthLayout";
 import FormField from "../../Ui/FormField";
-import SpinnerIcon from "../../Ui/SpinnerIcon";
+import SpinnerIcon from "../../Icons/SpinnerIcon";
 
 export default function Register() {
   const navigate = useNavigate();

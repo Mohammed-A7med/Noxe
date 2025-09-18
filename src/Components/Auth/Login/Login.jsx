@@ -9,7 +9,7 @@ import {
 } from "../../Constant/VALIDATIONS";
 import FormField from "../../Ui/FormField";
 import AuthLayout from "../../Layouts/AuthLayout";
-import SpinnerIcon from "../../Ui/SpinnerIcon";
+import SpinnerIcon from "../../Icons/SpinnerIcon";
 
 export default function Login({ saveUserData }) {
   const navigate = useNavigate();
