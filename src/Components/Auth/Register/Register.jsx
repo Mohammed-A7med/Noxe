@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import {
   AgeValidation,
@@ -32,9 +33,10 @@ export default function Register() {
   async function onSubmit(data) {
     try {
       await doCreateUserWithEmailAndPassword(data.email, data.password);
+      toast.success("You’ve registered successfully");
       navigate("/Login");
     } catch (error) {
-      console.error("Registration failed:", error.message);
+      toast.error("Registration failed. Please try again");
     }
   }
 
@@ -88,7 +90,12 @@ export default function Register() {
           error={errors.password}
         />
 
-        <Link to="/login" className="text-white text-decoration-none fst-italic">Already have an account?</Link>
+        <Link
+          to="/login"
+          className="text-white text-decoration-none fst-italic"
+        >
+          Already have an account?
+        </Link>
 
         {/* Submit */}
         <div className="btn-register d-flex justify-content-end mt-2">
@@ -99,8 +106,7 @@ export default function Register() {
           >
             {isSubmitting ? (
               <span>
-                please wait...{" "}
-                <SpinnerIcon/>
+                please wait... <SpinnerIcon />
               </span>
             ) : (
               "Register"
