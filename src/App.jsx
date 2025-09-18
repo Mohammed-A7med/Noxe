@@ -1,19 +1,18 @@
-import "./App.css";
+import { useEffect, useState } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+
 import Navbar from "./Components/Navbar/Navbar.jsx";
 import Home from "./Components/Home/Home.jsx";
 import Movies from "./Components/Movies/Movies.jsx";
 import Tvshows from "./Components/Tvshows/Tvshows.jsx";
 import People from "./Components/People/People.jsx";
-import About from "./Components/About/About.jsx";
 import Details from "./Components/Details/Details.jsx";
-import Networks from "./Components/Networks/Networks.jsx";
 import NotFound from "./Components/NotFound/NotFound.jsx";
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import TrendingContextProvider from "./Components/Context/Store.js";
-import { Toaster } from "react-hot-toast";
+import "./App.css";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -86,15 +85,6 @@ function App() {
               element={
                 <ProtectedRoute>
                   <People />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route path="About" element={<About />}></Route>
-            <Route
-              path="Networks"
-              element={
-                <ProtectedRoute>
-                  <Networks />
                 </ProtectedRoute>
               }
             ></Route>
