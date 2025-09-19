@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
+
 import { trendingContext } from "../Context/Store";
-import Loading from '../Loading/Loading';
+import Loading from "../Loading/Loading";
 
 export default function People() {
-  let { trendingPeople, baseUrlImg, goToDetails , isLoading } = useContext(trendingContext);
+  let { trendingPeople, baseUrlImg, goToDetails, isLoading } =
+    useContext(trendingContext);
 
   if (isLoading) {
-    return <Loading/>
+    return <Loading />;
   }
 
   return (
