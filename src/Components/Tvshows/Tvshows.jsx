@@ -2,6 +2,7 @@
 import { useGoToDetails } from "../Hooks/useGoToDetails";
 import { useTrending } from "../Hooks/useTrending";
 import Loading from "../Loading/Loading";
+import TrendingHeader from "../Ui/TrendingHeader";
 
 export default function Tvshows() {
   let { baseUrlImg, isLoading, trendingList } = useTrending("tv");
@@ -13,16 +14,9 @@ export default function Tvshows() {
 
   return (
     <div className="row">
-      <div className="col-md-4">
-        <div className="welcome my-5">
-          <div className="brdr w-25"></div>
-          <h2 className="mt-4">Trending</h2>
-          <h2>Tv</h2>
-          <h2>to watch now</h2>
-          <p className="text-muted">most watched tv by days</p>
-          <div className="brdr w-100"></div>
-        </div>
-      </div>
+      {/* ---------- Trending section header ---------- */}
+      <TrendingHeader title="Tv" />
+
       {trendingList.map((tv) => (
         <div
           onClick={() => goToDetails(tv.id, "tv")}

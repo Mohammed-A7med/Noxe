@@ -2,6 +2,7 @@
 import { useGoToDetails } from "../Hooks/useGoToDetails";
 import { useTrending } from "../Hooks/useTrending";
 import Loading from "../Loading/Loading";
+import TrendingHeader from "../Ui/TrendingHeader";
 
 export default function People() {
   let { baseUrlImg, isLoading, trendingList } = useTrending("person");
@@ -13,16 +14,9 @@ export default function People() {
 
   return (
     <div className="row">
-      <div className="col-md-4">
-        <div className="welcome my-5">
-          <div className="brdr w-25"></div>
-          <h2 className="mt-4">Trending</h2>
-          <h2>Person</h2>
-          <h2>to watch now</h2>
-          <p className="text-muted">most watched person by days</p>
-          <div className="brdr w-100"></div>
-        </div>
-      </div>
+       {/* ---------- Trending section header ---------- */}
+      <TrendingHeader title="Person" />
+      
       {trendingList.map((person) => (
         <div
           onClick={() => goToDetails(person.id, "person")}
