@@ -1,11 +1,10 @@
-import { useContext } from "react";
-
-import { trendingContext } from "../Context/Store";
+import { useGoToDetails } from "../Hooks/useGoToDetails";
+import { useTrending } from "../Hooks/useTrending";
 import Loading from "../Loading/Loading";
 
 export default function Movies() {
-  let { trendingMovies, baseUrlImg, goToDetails, isLoading } =
-    useContext(trendingContext);
+  let { baseUrlImg, isLoading, trendingList } = useTrending("movie");
+  let { goToDetails } = useGoToDetails();
 
   if (isLoading) {
     return <Loading />;
@@ -22,7 +21,7 @@ export default function Movies() {
           <div className="brdr w-100"></div>
         </div>
       </div>
-      {trendingMovies.map((movie) => (
+      {trendingList.map((movie) => (
         <div
           onClick={() => goToDetails(movie.id, "movie")}
           key={movie.id}

@@ -1,11 +1,11 @@
-import { useContext } from "react";
 
-import { trendingContext } from "../Context/Store";
+import { useGoToDetails } from "../Hooks/useGoToDetails";
+import { useTrending } from "../Hooks/useTrending";
 import Loading from "../Loading/Loading";
 
 export default function People() {
-  let { trendingPeople, baseUrlImg, goToDetails, isLoading } =
-    useContext(trendingContext);
+  let { baseUrlImg, isLoading, trendingList } = useTrending("person");
+  let { goToDetails } = useGoToDetails();
 
   if (isLoading) {
     return <Loading />;
@@ -23,7 +23,7 @@ export default function People() {
           <div className="brdr w-100"></div>
         </div>
       </div>
-      {trendingPeople.map((person) => (
+      {trendingList.map((person) => (
         <div
           onClick={() => goToDetails(person.id, "person")}
           key={person.id}
