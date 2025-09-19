@@ -11,7 +11,6 @@ import Details from "./Components/Details/Details.jsx";
 import NotFound from "./Components/NotFound/NotFound.jsx";
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
-import TrendingContextProvider from "./Components/Context/Store.js";
 import "./App.css";
 
 function App() {
@@ -46,64 +45,62 @@ function App() {
     <>
       <Navbar userData={userData} Logout={Logout} />
       <div className="container my-5">
-        <TrendingContextProvider>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="Home"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="Movies"
-              element={
-                <ProtectedRoute>
-                  <Movies />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="Tvshows"
-              element={
-                <ProtectedRoute>
-                  <Tvshows />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="People"
-              element={
-                <ProtectedRoute>
-                  <People />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="Details"
-              element={
-                <ProtectedRoute>
-                  <Details />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="Login"
-              element={<Login saveUserData={saveUserData} />}
-            ></Route>
-            <Route path="Register" element={<Register />}></Route>
-            <Route path="*" element={<NotFound />}></Route>
-          </Routes>
-        </TrendingContextProvider>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="Home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="Movies"
+            element={
+              <ProtectedRoute>
+                <Movies />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="Tvshows"
+            element={
+              <ProtectedRoute>
+                <Tvshows />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="People"
+            element={
+              <ProtectedRoute>
+                <People />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="Details"
+            element={
+              <ProtectedRoute>
+                <Details />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="Login"
+            element={<Login saveUserData={saveUserData} />}
+          ></Route>
+          <Route path="Register" element={<Register />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
       </div>
 
       <Toaster

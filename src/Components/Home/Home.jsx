@@ -1,13 +1,11 @@
-import  { useContext } from "react";
-
-import { trendingContext } from "../Context/Store";
+import { useTrending } from "../Hooks/useTrending";
 import Loading from "../Loading/Loading";
 import Movies from "../Movies/Movies";
 import Tvshows from "../Tvshows/Tvshows";
 import People from "../People/People";
 
 export default function Home() {
-  let { isLoading } = useContext(trendingContext);
+  let { isLoading } = useTrending()
 
   if (isLoading) {
     return <Loading />;
