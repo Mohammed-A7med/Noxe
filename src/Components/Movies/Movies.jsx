@@ -2,6 +2,7 @@ import { useContext } from "react";
 
 import { trendingContext } from "../Context/Store";
 import Loading from "../Loading/Loading";
+import TrendingHeader from "../Ui/TrendingHeader";
 
 export default function Movies() {
   let { trendingMovies, baseUrlImg, goToDetails, isLoading } =
@@ -10,18 +11,12 @@ export default function Movies() {
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <div className="row">
-      <div className="col-md-4">
-        <div className="welcome my-5">
-          <div className="brdr w-25"></div>
-          <h2 className="mt-4">Trending</h2>
-          <h2>Movies</h2>
-          <h2>to watch now</h2>
-          <p className="text-muted">most watched movies by days</p>
-          <div className="brdr w-100"></div>
-        </div>
-      </div>
+       {/* ---------- Trending section header ---------- */}
+      <TrendingHeader title="Movies" />
+      
       {trendingMovies.map((movie) => (
         <div
           onClick={() => goToDetails(movie.id, "movie")}
