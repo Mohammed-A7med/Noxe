@@ -46,7 +46,7 @@ export default function Navbar({ userData, Logout }) {
           {userData && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {navLinks.map(({ to, label }) => (
-                <li key={to} className="nav-item">
+                <li key={label} className="nav-item">
                   <NavLink
                     to={to}
                     className={({ isActive }) =>
