@@ -72,7 +72,7 @@ export default function Navbar({ userData, Logout }) {
                   Logout
                 </button>
               </li>
-            )}
+            ) }
           </ul>
         </div>
       </div>
