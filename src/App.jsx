@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
-import Navbar from "./Components/Navbar/Navbar.jsx";
-import Home from "./Components/Home/Home.jsx";
-import Movies from "./Components/Movies/Movies.jsx";
-import Tvshows from "./Components/Tvshows/Tvshows.jsx";
-import People from "./Components/People/People.jsx";
-import Details from "./Components/Details/Details.jsx";
-import NotFound from "./Components/NotFound/NotFound.jsx";
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
 import "./App.css";
+import Details from "./Components/Details/Details.jsx";
+import Home from "./Components/Home/Home.jsx";
+import Movies from "./Components/Movies/Movies.jsx";
+import Navbar from "./Components/Navbar/Navbar.jsx";
+import NotFound from "./Components/NotFound/NotFound.jsx";
+import People from "./Components/People/People.jsx";
+import Tvshows from "./Components/Tvshows/Tvshows.jsx";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute.jsx";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -34,13 +35,6 @@ function App() {
     navigate("/Login");
   }
 
-  function ProtectedRoute(props) {
-    if (localStorage.getItem("userToken") == null) {
-      return <Navigate to="/Login" />;
-    } else {
-      return props.children;
-    }
-  }
   return (
     <>
       <Navbar userData={userData} Logout={Logout} />
