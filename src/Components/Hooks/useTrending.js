@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 export function useTrending(mediaType = "all") {
   const [isLoading, setIsLoading] = useState(false);
   const [trendingList, setTrendingList] = useState([]);
-  const baseUrlImg = "https://image.tmdb.org/t/p/w500";
 
   async function getTrendingItems(type = mediaType) {
     try {
@@ -28,6 +27,5 @@ export function useTrending(mediaType = "all") {
   return {
     isLoading,
     trendingList,
-    baseUrlImg,
   };
 }
