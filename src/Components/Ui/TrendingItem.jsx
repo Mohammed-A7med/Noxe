@@ -1,10 +1,9 @@
 import { useGoToDetails } from "../Hooks/useGoToDetails";
-import { useTrending } from "../Hooks/useTrending";
 
 export default function TrendingItem({ item, mediaType }) {
-  const { baseUrlImg } = useTrending();
   const { goToDetails } = useGoToDetails();
-
+  
+  const baseUrlImg = "https://image.tmdb.org/t/p/w500";
   const imageUrl = baseUrlImg + (item.poster_path || item.profile_path);
 
   const altText = item.title
