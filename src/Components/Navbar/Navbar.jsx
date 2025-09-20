@@ -6,6 +6,7 @@ import FacebookIcon from "../Icons/FacebookIcon";
 import SpotifyIcon from "../Icons/SpotifyIcon";
 import InstagramIcon from "../Icons/InstagramIcon";
 import YoutubeIcon from "../Icons/YoutubeIcon";
+import IconLink from "../Ui/IconLink";
 
 export default function Navbar({ userData, Logout }) {
   return (
@@ -72,41 +73,24 @@ export default function Navbar({ userData, Logout }) {
           )}
 
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <div className="navbar-icons d-flex align-items-center gap-2">
+            <IconLink label="Facebook">
               <FacebookIcon />
+            </IconLink>
+            <IconLink label="Spotify">
               <SpotifyIcon />
+            </IconLink>
+            <IconLink label="Instagram">
               <InstagramIcon />
+            </IconLink>
+            <IconLink label="YouTube">
               <YoutubeIcon />
-            </div>
-            {userData ? (
+            </IconLink>
+            {userData && (
               <li className="nav-item">
                 <button onClick={Logout} className="nav-link">
                   Logout
                 </button>
               </li>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <NavLink
-                    to="/Login"
-                    className={({ isActive }) =>
-                      `nav-link ${isActive ? "Styles.active" : ""}`
-                    }
-                  >
-                    Login
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    to="/Register"
-                    className={({ isActive }) =>
-                      `nav-link ${isActive ? "Styles.active" : ""}`
-                    }
-                  >
-                    Register
-                  </NavLink>
-                </li>
-              </>
             )}
           </ul>
         </div>
