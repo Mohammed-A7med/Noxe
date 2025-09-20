@@ -62,7 +62,9 @@ export default function Navbar({ userData, Logout }) {
           {/* Social icons and logout button */}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row gap-2 gap-md-0">
             {socialLinks.map(({ label, icon }) => (
-              <IconLink label={label}>{icon}</IconLink>
+              <IconLink key={label} label={label}>
+                {icon}
+              </IconLink>
             ))}
             {userData && (
               <li className="nav-item">
