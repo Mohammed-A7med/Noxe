@@ -14,6 +14,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TrendingContextProvider from "./Components/Context/Store.js";
 import { Toaster } from "react-hot-toast";
+import { toastStyles } from "./Components/Constant/ToastStyles.js";
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -116,36 +117,7 @@ function App() {
         </TrendingContextProvider>
       </div>
 
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            borderRadius: "8px",
-            padding: "12px 16px",
-            fontSize: "14px",
-          },
-          success: {
-            style: {
-              background: "#00c896",
-              color: "#fff",
-            },
-            iconTheme: {
-              primary: "#00e0ac",
-              secondary: "#fff",
-            },
-          },
-          error: {
-            style: {
-              background: "#ff4d4f",
-              color: "#fff",
-            },
-            iconTheme: {
-              primary: "#ff6b6d",
-              secondary: "#fff",
-            },
-          },
-        }}
-      />
+      <Toaster position="top-right" toastOptions={toastStyles} />
     </>
   );
 }
