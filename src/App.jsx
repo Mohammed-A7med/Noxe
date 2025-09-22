@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
@@ -14,31 +13,13 @@ import People from "./Components/People/People.jsx";
 import Tvshows from "./Components/Tvshows/Tvshows.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute.jsx";
 import { toastStyles } from "./Components/Constant/ToastStyles.js";
+import { useToken } from "./Components/Context/Store.jsx";
 
 function App() {
-  const [userData, setUserData] = useState(null);
-  const navigate = useNavigate();
-
-  function saveUserData() {
-    let emailUser = localStorage.getItem("userToken");
-    setUserData(emailUser);
-  }
-
-  useEffect(() => {
-    if (localStorage.getItem("userToken") != null) {
-      saveUserData();
-    }
-  });
-
-  function Logout() {
-    localStorage.removeItem("userToken");
-    setUserData(null);
-    navigate("/Login");
-  }
-
+  const { userToken, saveUserToken, logout } = useToken();
   return (
     <>
-      <Navbar userData={userData} Logout={Logout} />
+      <Navbar userData={userToken} Logout={logout} />
       <div className="container my-5">
         <Routes>
           <Route
@@ -91,7 +72,7 @@ function App() {
           ></Route>
           <Route
             path="Login"
-            element={<Login saveUserData={saveUserData} />}
+            element={<Login saveUserData={saveUserToken} />}
           ></Route>
           <Route path="Register" element={<Register />}></Route>
           <Route path="*" element={<NotFound />}></Route>
