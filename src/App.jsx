@@ -4,22 +4,20 @@ import { Route, Routes } from "react-router-dom";
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
 import "./App.css";
+import { toastStyles } from "./Components/Constant/ToastStyles.js";
 import Details from "./Components/Details/Details.jsx";
 import Home from "./Components/Home/Home.jsx";
 import Movies from "./Components/Movies/Movies.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx";
 import NotFound from "./Components/NotFound/NotFound.jsx";
 import People from "./Components/People/People.jsx";
-import Tvshows from "./Components/Tvshows/Tvshows.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute.jsx";
-import { toastStyles } from "./Components/Constant/ToastStyles.js";
-import { useToken } from "./Components/Context/Store.jsx";
+import Tvshows from "./Components/Tvshows/Tvshows.jsx";
 
 function App() {
-  const { userToken, saveUserToken, logout } = useToken();
   return (
     <>
-      <Navbar userData={userToken} Logout={logout} />
+      <Navbar />
       <div className="container my-5">
         <Routes>
           <Route
@@ -72,7 +70,7 @@ function App() {
           ></Route>
           <Route
             path="Login"
-            element={<Login saveUserData={saveUserToken} />}
+            element={<Login  />}
           ></Route>
           <Route path="Register" element={<Register />}></Route>
           <Route path="*" element={<NotFound />}></Route>
