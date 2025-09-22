@@ -6,8 +6,10 @@ import SpotifyIcon from "../Icons/SpotifyIcon";
 import YoutubeIcon from "../Icons/YoutubeIcon";
 import IconLink from "../Ui/IconLink";
 import Styles from "./Navbar.module.css";
+import { useToken } from "../Context/Store";
 
-export default function Navbar({ userData, Logout }) {
+export default function Navbar() {
+  const {userToken,logout} = useToken()
   const navLinks = [
     { to: "/Home", label: "Home" },
     { to: "/Movies", label: "Movies" },
@@ -43,7 +45,7 @@ export default function Navbar({ userData, Logout }) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           {/* Render main navigation links only if user is logged in */}
-          {userData && (
+          {userToken && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {navLinks.map(({ to, label }) => (
                 <li key={label} className="nav-item">
@@ -66,9 +68,9 @@ export default function Navbar({ userData, Logout }) {
                 {icon}
               </IconLink>
             ))}
-            {userData && (
+            {userToken && (
               <li className="nav-item">
-                <button onClick={Logout} className="nav-link">
+                <button onClick={logout} className="nav-link">
                   Logout
                 </button>
               </li>

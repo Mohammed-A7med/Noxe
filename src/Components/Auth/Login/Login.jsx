@@ -10,10 +10,11 @@ import {
 import FormField from "../../Ui/FormField";
 import AuthLayout from "../../Layouts/AuthLayout";
 import SpinnerIcon from "../../Icons/SpinnerIcon";
+import { useToken } from "../../Context/Store";
 
-export default function Login({ saveUserData }) {
+export default function Login() {
   const navigate = useNavigate();
-
+  const {saveUserToken} = useToken()
   const {
     register,
     handleSubmit,
@@ -35,7 +36,7 @@ export default function Login({ saveUserData }) {
       // Save Firebase token or UID
       localStorage.setItem("userToken", response.user.accessToken);
 
-      saveUserData();
+      saveUserToken();
       toast.success("You have successfully logged in.");
       navigate("/Home");
     } catch (error) {
