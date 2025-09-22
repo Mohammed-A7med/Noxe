@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from "react";
-import { auth } from "./firebase";
+import { auth } from "../../Firebase/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const AuthContext = React.createContext({
