@@ -1,11 +1,17 @@
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 
 const TokenContext = createContext(null);
 
 export function TokenProvider({ children }) {
-  const [userToken, setUserToken] = useState(() => localStorage.getItem("userToken"));
-  const navigate = useNavigate();
+  const [userToken, setUserToken] = useState(() =>
+    localStorage.getItem("userToken")
+  );
 
   const saveUserToken = useCallback(() => {
     const token = localStorage.getItem("userToken");
@@ -18,14 +24,8 @@ export function TokenProvider({ children }) {
     }
   }, [saveUserToken]);
 
-  const logout = useCallback(() => {
-    localStorage.removeItem("userToken");
-    setUserToken(null);
-    navigate("/login");
-  }, [navigate]);
-
   return (
-    <TokenContext.Provider value={{ userToken, saveUserToken, logout }}>
+    <TokenContext.Provider value={{ userToken, setUserToken, saveUserToken }}>
       {children}
     </TokenContext.Provider>
   );
