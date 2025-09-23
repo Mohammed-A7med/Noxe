@@ -7,9 +7,12 @@ import YoutubeIcon from "../Icons/YoutubeIcon";
 import IconLink from "../Ui/IconLink";
 import Styles from "./Navbar.module.css";
 import { useToken } from "../Context/Store";
+import UseLogout from "../Hooks/UseLogout";
 
 export default function Navbar() {
-  const {userToken,logout} = useToken()
+  const { userToken } = useToken();
+  const logout = UseLogout();
+  
   const navLinks = [
     { to: "/Home", label: "Home" },
     { to: "/Movies", label: "Movies" },
@@ -74,7 +77,7 @@ export default function Navbar() {
                   Logout
                 </button>
               </li>
-            ) }
+            )}
           </ul>
         </div>
       </div>
