@@ -6,7 +6,9 @@ export default function MasterLayout() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="container my-3 my-md-5">
+        <Outlet />
+      </div>
     </>
   );
 }
