@@ -1,9 +1,17 @@
-export default function AuthLayout({ children }) {
+import { Outlet } from "react-router-dom";
+import Navbar from "../Navbar/Navbar";
+
+export default function AuthLayout() {
   return (
-    <div className="container">
-      <div className="row justify-content-center align-items-center">
-        <div className="col-md-8 mt-5">{children}</div>
+    <>
+      <Navbar />
+      <div className="container mt-5">
+        <div className="row justify-content-center align-items-center">
+          <div className="col-md-8 mt-5">
+            <Outlet />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
