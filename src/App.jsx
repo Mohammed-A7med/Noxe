@@ -41,7 +41,7 @@ function App() {
         { path: "movies", element: <Movies /> },
         { path: "tvshows", element: <Tvshows /> },
         { path: "people", element: <People /> },
-        { path: "details/:id", element: <Details /> },
+        { path: "details", element: <Details /> },
       ],
     },
   ]);
