@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { Route, Routes } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
@@ -8,75 +8,47 @@ import { toastStyles } from "./Components/Constant/ToastStyles.js";
 import Details from "./Components/Details/Details.jsx";
 import Home from "./Components/Home/Home.jsx";
 import Movies from "./Components/Movies/Movies.jsx";
-import Navbar from "./Components/Navbar/Navbar.jsx";
 import NotFound from "./Components/NotFound/NotFound.jsx";
 import People from "./Components/People/People.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute.jsx";
 import Tvshows from "./Components/Tvshows/Tvshows.jsx";
+import AuthLayout from "./Components/Layouts/AuthLayout.jsx";
+import MasterLayout from "./Components/Layouts/MasterLayout.jsx";
 
 function App() {
+  const routes = createBrowserRouter([
+    {
+      path: "",
+      element: <AuthLayout />,
+      errorElement: <NotFound />,
+      children: [
+        { index: true, element: <Login /> },
+        { path: "login", element: <Login /> },
+        { path: "register", element: <Register /> },
+      ],
+    },
+    {
+      path: "dashboard",
+      element: (
+        <ProtectedRoute>
+          <MasterLayout />
+        </ProtectedRoute>
+      ),
+      errorElement: <NotFound />,
+      children: [
+        { index: true, element: <Home /> },
+        { path: "home", element: <Home /> },
+        { path: "movies", element: <Movies /> },
+        { path: "tvshows", element: <Tvshows /> },
+        { path: "people", element: <People /> },
+        { path: "details/:id", element: <Details /> },
+      ],
+    },
+  ]);
+
   return (
     <>
-      <Navbar />
-      <div className="container my-5">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="Home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="Movies"
-            element={
-              <ProtectedRoute>
-                <Movies />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="Tvshows"
-            element={
-              <ProtectedRoute>
-                <Tvshows />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="People"
-            element={
-              <ProtectedRoute>
-                <People />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="Details"
-            element={
-              <ProtectedRoute>
-                <Details />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path="Login"
-            element={<Login  />}
-          ></Route>
-          <Route path="Register" element={<Register />}></Route>
-          <Route path="*" element={<NotFound />}></Route>
-        </Routes>
-      </div>
-
+      <RouterProvider router={routes} />
       <Toaster position="top-right" toastOptions={toastStyles} />
     </>
   );
