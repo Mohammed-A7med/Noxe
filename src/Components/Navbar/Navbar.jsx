@@ -13,12 +13,14 @@ export default function Navbar() {
   const { userToken } = useToken();
   const logout = UseLogout();
   
-  const navLinks = [
-    { to: "/Home", label: "Home" },
-    { to: "/Movies", label: "Movies" },
-    { to: "/Tvshows", label: "TV Shows" },
-    { to: "/People", label: "People" },
-  ];
+const basePath = "/dashboard";
+
+const navLinks = [
+  { to: `${basePath}/home`, label: "Home" },
+  { to: `${basePath}/movies`, label: "Movies" },
+  { to: `${basePath}/tvshows`, label: "TV Shows" },
+  { to: `${basePath}/people`, label: "People" },
+];
 
   const socialLinks = [
     { label: "Facebook", icon: <FacebookIcon /> },
@@ -30,7 +32,7 @@ export default function Navbar() {
   return (
     <nav className={`navbar navbar-expand-lg ${Styles.bgColor} sticky-top`}>
       <div className="container-fluid">
-        <NavLink className="navbar-brand fw-bolder" to="/">
+        <NavLink className="navbar-brand fw-bolder" to="/dashboard">
           NOXE
         </NavLink>
         {/* Toggler button for mobile */}
