@@ -1,19 +1,41 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 
-import Styles from "./Navbar.module.css";
 import FacebookIcon from "../Icons/FacebookIcon";
-import SpotifyIcon from "../Icons/SpotifyIcon";
 import InstagramIcon from "../Icons/InstagramIcon";
+import SpotifyIcon from "../Icons/SpotifyIcon";
 import YoutubeIcon from "../Icons/YoutubeIcon";
+import IconLink from "../Ui/IconLink";
+import Styles from "./Navbar.module.css";
+import { useToken } from "../Context/Store";
+import UseLogout from "../Hooks/UseLogout";
 
-export default function Navbar({ userData, Logout }) {
+export default function Navbar() {
+  const { userToken } = useToken();
+  const logout = UseLogout();
+  
+const basePath = "/dashboard";
+
+const navLinks = [
+  { to: `${basePath}/home`, label: "Home" },
+  { to: `${basePath}/movies`, label: "Movies" },
+  { to: `${basePath}/tvshows`, label: "TV Shows" },
+  { to: `${basePath}/people`, label: "People" },
+];
+
+  const socialLinks = [
+    { label: "Facebook", icon: <FacebookIcon /> },
+    { label: "Spotify", icon: <SpotifyIcon /> },
+    { label: "Instagram", icon: <InstagramIcon /> },
+    { label: "YouTube", icon: <YoutubeIcon /> },
+  ];
+
   return (
     <nav className={`navbar navbar-expand-lg ${Styles.bgColor} sticky-top`}>
       <div className="container-fluid">
-        <NavLink className="navbar-brand fw-bolder" to="/">
+        <NavLink className="navbar-brand fw-bolder" to="/dashboard">
           NOXE
         </NavLink>
+        {/* Toggler button for mobile */}
         <button
           className="navbar-toggler"
           type="button"
@@ -25,88 +47,38 @@ export default function Navbar({ userData, Logout }) {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {userData && (
+          {/* Render main navigation links only if user is logged in */}
+          {userToken && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink
-                  to="/Home"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? Styles.active : ""}`
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/Movies"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? Styles.active : ""}`
-                  }
-                >
-                  Movies
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/Tvshows"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? Styles.active : ""}`
-                  }
-                >
-                  Tv show
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/People"
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? Styles.active : ""}`
-                  }
-                >
-                  People
-                </NavLink>
-              </li>
+              {navLinks.map(({ to, label }) => (
+                <li key={label} className="nav-item">
+                  <NavLink
+                    to={to}
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? Styles.active : ""}`
+                    }
+                  >
+                    {label}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           )}
-
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <div className="navbar-icons d-flex align-items-center gap-2">
-              <FacebookIcon />
-              <SpotifyIcon />
-              <InstagramIcon />
-              <YoutubeIcon />
-            </div>
-            {userData ? (
+          {/* Social icons and logout button */}
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row gap-2 gap-md-0">
+            {socialLinks.map(({ label, icon }) => (
+              <IconLink key={label} label={label}>
+                {icon}
+              </IconLink>
+            ))}
+            {userToken && (
               <li className="nav-item">
-                <button onClick={Logout} className="nav-link">
+                <button onClick={logout} className="nav-link">
                   Logout
                 </button>
               </li>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <NavLink
-                    to="/Login"
-                    className={({ isActive }) =>
-                      `nav-link ${isActive ? "Styles.active" : ""}`
-                    }
-                  >
-                    Login
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink
-                    to="/Register"
-                    className={({ isActive }) =>
-                      `nav-link ${isActive ? "Styles.active" : ""}`
-                    }
-                  >
-                    Register
-                  </NavLink>
-                </li>
-              </>
             )}
           </ul>
         </div>

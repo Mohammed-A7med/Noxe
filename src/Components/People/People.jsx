@@ -1,41 +1,26 @@
-import React, { useContext } from "react";
-import { trendingContext } from "../Context/Store";
-import Loading from '../Loading/Loading';
+import { useTrending } from "../Hooks/useTrending";
+import Loading from "../Loading/Loading";
+import TrendingHeader from "../Ui/TrendingHeader/TrendingHeader";
+import TrendingItem from "../Ui/TrendingItem";
 
 export default function People() {
-  let { trendingPeople, baseUrlImg, goToDetails , isLoading } = useContext(trendingContext);
+  const { isLoading, trendingList } = useTrending("person");
 
   if (isLoading) {
-    return <Loading/>
+    return <Loading />;
   }
 
   return (
     <div className="row">
-      <div className="col-md-4">
-        <div className="welcome my-5">
-          <div className="brdr w-25"></div>
-          <h2 className="mt-4">Trending</h2>
-          <h2>Person</h2>
-          <h2>to watch now</h2>
-          <p className="text-muted">most watched person by days</p>
-          <div className="brdr w-100"></div>
-        </div>
-      </div>
-      {trendingPeople.map((person) => (
-        <div
-          onClick={() => goToDetails(person.id, "person")}
-          key={person.id}
-          className="col-md-2"
-        >
-          <div className="person">
-            <img
-              className="w-100 my-2"
-              src={baseUrlImg + person.profile_path}
-              alt=""
-            />
-            <h2 className="h5 text-center">{person.name}</h2>
-          </div>
-        </div>
+      {/* ---------- Trending section header ---------- */}
+      <TrendingHeader
+        title="Person"
+        description="Trending actors and actresses"
+      />
+
+      {/* Render list of trending Person using the shared TrendingItem component */}
+      {trendingList.map((person) => (
+        <TrendingItem key={person.id} item={person} mediaType="person" />
       ))}
     </div>
   );
