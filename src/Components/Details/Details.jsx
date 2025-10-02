@@ -1,14 +1,18 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import ArrowLeftIcon from "../Icons/ArrowLeftIcon";
 
 export default function Details() {
   const [searchParams] = useSearchParams();
   const [details, setDetails] = useState({});
+  const navigate = useNavigate();
+
   let currentId = searchParams.get("id");
   let mediaType = searchParams.get("mediaType");
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
-  const imagePath = mediaType === "person" ? details.profile_path : details.poster_path;
+  const imagePath =
+    mediaType === "person" ? details.profile_path : details.poster_path;
 
   async function getTrindingDetails(mediaType) {
     let { data } = await axios.get(
@@ -22,43 +26,80 @@ export default function Details() {
   }, []);
 
   return (
-    <>
-      <div className="row">
-        <div className="col-md-4">
-          <img
-            className="w-100 my-2"
-            src={baseUrlImg + imagePath }
-            alt=""
-          />
-        </div>
-
-        <div className="col-md-8">
-          <div className="desc-details mx-4">
-            <h2 className="my-2">{details.title || details.name}</h2>
-            <h4 className="my-3">{details.original_title || details.original_name }</h4>
-            {details.genres?.map((genre) => (
-              <li
-                className="btn mx-2 text-white main-bg d-inline-block align-items-center"
-                key={genre.id}
-              >
-                {genre.name}
-              </li>
-            ))}
-            {mediaType==='person'?<>
-            <h5 className="my-4">popularity : {details.popularity}</h5>
-            <h5 className="my-4">birthday : {details.birthday}</h5>
-            <h5 className="my-4">place of birth : {details.place_of_birth}</h5>
-            <h5 className="my-4">biography : {details.biography}</h5>
-            </>:<>
-            <h5 className="my-4">vote : {details.vote_average}</h5>
-            <h5 className="my-4">vote count : {details.vote_count}</h5>
-            <h5 className="my-4">popularity : {details.popularity}</h5>
-            <h5 className="my-4">release_date : {details.release_date}</h5>
-            <h5 className="my-4 ">{details.overview}</h5></>}
-            
-          </div>
+    <div className="row g-4">
+      {/* Poster / Profile Image */}
+      <div className="col-12 col-md-4">
+        <div className="shadow rounded-3 overflow-hidden">
+          <img className="w-100" src={baseUrlImg + imagePath} alt={mediaType} />
         </div>
       </div>
-    </>
+
+      {/* Details Section */}
+      <div className="col-12 col-md-8 text-white">
+        {/* Back Button */}
+        <div className="mb-3">
+          <button
+            onClick={() => navigate(-1)}
+            className="btn btn-light btn-sm d-flex align-items-center gap-2 shadow-sm rounded-pill px-3 py-2 w-auto w-md-auto"
+          >
+            <ArrowLeftIcon width={18} height={18} /> Back
+          </button>
+        </div>
+
+        {/* Title */}
+        <h2 className="fw-bold h4 h-md-2">{details.title || details.name}</h2>
+
+        {/* Subtitle */}
+        <h4 className="text-muted mb-3 small small-md">
+          {details.original_title || details.original_name}
+        </h4>
+
+        {/* Genres */}
+        <div className="mb-3 d-flex flex-wrap">
+          {details.genres?.map((genre) => (
+            <span
+              className="badge bg-info text-dark me-2 mb-2 px-2 py-1"
+              key={genre.id}
+            >
+              {genre.name}
+            </span>
+          ))}
+        </div>
+
+        {/* Info Section */}
+        {mediaType === "person" ? (
+          <div className="mt-3">
+            <p>
+              <strong>Popularity :</strong> {details.popularity}
+            </p>
+            <p>
+              <strong>Birthday :</strong> {details.birthday}
+            </p>
+            <p>
+              <strong>Place of Birth :</strong> {details.place_of_birth}
+            </p>
+            <p className="mt-3">
+              <strong>Biography :</strong> {details.biography}
+            </p>
+          </div>
+        ) : (
+          <div className="mt-3">
+            <p>
+              <strong>Vote :</strong> {details.vote_average}
+            </p>
+            <p>
+              <strong>Vote Count :</strong> {details.vote_count}
+            </p>
+            <p>
+              <strong>Popularity :</strong> {details.popularity}
+            </p>
+            <p>
+              <strong>Release Date :</strong> {details.release_date}
+            </p>
+            <p className="mt-3">{details.overview}</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
