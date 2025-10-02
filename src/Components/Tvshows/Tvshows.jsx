@@ -1,6 +1,6 @@
 import { useTrending } from "../Hooks/useTrending";
 import Loading from "../Loading/Loading";
-import TrendingHeader from "../Ui/TrendingHeader";
+import TrendingHeader from "../Ui/TrendingHeader/TrendingHeader";
 import TrendingItem from "../Ui/TrendingItem/TrendingItem";
 
 export default function Tvshows() {
@@ -13,7 +13,10 @@ export default function Tvshows() {
   return (
     <div className="row">
       {/* ---------- Trending section header ---------- */}
-      <TrendingHeader title="Tv" />
+      <TrendingHeader
+        title="Tv"
+        description="Most popular TV shows this week"
+      />
 
       {/* Render list of trending Tv using the shared TrendingItem component */}
       {trendingList.map((tv) => (

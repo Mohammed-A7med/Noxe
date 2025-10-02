@@ -5,7 +5,7 @@ export function useGoToDetails() {
 
   function goToDetails(id, mediaType) {
     navigate({
-      pathname: "/Details",
+      pathname: "/dashboard/details",
       search: `?id=${id}&mediaType=${mediaType}`,
     });
   }

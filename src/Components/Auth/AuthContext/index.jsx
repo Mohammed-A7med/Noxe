@@ -1,10 +1,16 @@
-import React, { useContext, useEffect, useState, useMemo } from "react";
-import { auth } from "./firebase";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+  useCallback,
+} from "react";
+import { auth } from "../../Firebase/firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 const AuthContext = React.createContext({
   currentUser: null,
-  userLoginIn: false,
+  isLoggedIn: false,
   loading: true,
   error: null,
   logout: () => {},
@@ -16,7 +22,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userLoginIn, setUserLoginIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,10 +32,10 @@ export function AuthProvider({ children }) {
       (user) => {
         if (user) {
           setCurrentUser(user);
-          setUserLoginIn(true);
+          setIsLoggedIn(true);
         } else {
           setCurrentUser(null);
-          setUserLoginIn(false);
+          setIsLoggedIn(false);
         }
         setLoading(false);
       },
@@ -42,22 +48,22 @@ export function AuthProvider({ children }) {
     return unLoginIn;
   }, []);
 
-  const logout = async () => {
+  const logout = useCallback(async () => {
     setLoading(true);
     try {
       await signOut(auth);
       setCurrentUser(null);
-      setUserLoginIn(false);
+      setIsLoggedIn(false);
     } catch (error) {
       setError(error);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const value = useMemo(
-    () => ({ currentUser, userLoginIn, loading, logout, error }),
-    [currentUser, userLoginIn, loading, error]
+    () => ({ currentUser, isLoggedIn, loading, logout, error }),
+    [currentUser, isLoggedIn, loading, error, logout]
   );
 
   return (
