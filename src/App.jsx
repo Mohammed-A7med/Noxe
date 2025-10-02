@@ -3,7 +3,6 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
-import "./App.css";
 import { toastStyles } from "./Components/Constant/ToastStyles.js";
 import Details from "./Components/Details/Details.jsx";
 import Home from "./Components/Home/Home.jsx";
