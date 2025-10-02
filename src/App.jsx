@@ -1,9 +1,9 @@
 import { Toaster } from "react-hot-toast";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { toastStyles } from "./Components/Constant/ToastStyles.js";
 
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
-import { toastStyles } from "./Components/Constant/ToastStyles.js";
 import Details from "./Components/Details/Details.jsx";
 import Home from "./Components/Home/Home.jsx";
 import Movies from "./Components/Movies/Movies.jsx";
