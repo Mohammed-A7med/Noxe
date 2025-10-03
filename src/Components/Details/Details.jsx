@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import ArrowLeftIcon from "../Icons/ArrowLeftIcon";
-
+import fallbackImg from "../../assets/Noxe img.png"
 export default function Details() {
   const [searchParams] = useSearchParams();
   const [details, setDetails] = useState({});
@@ -30,7 +30,11 @@ export default function Details() {
       {/* Poster / Profile Image */}
       <div className="col-12 col-md-4">
         <div className="shadow rounded-3 overflow-hidden">
-          <img className="w-100" src={baseUrlImg + imagePath} alt={mediaType} />
+          <img
+            className="w-100"
+            src={imagePath ? baseUrlImg + imagePath : fallbackImg}
+            alt={details.title || details.name}
+          />
         </div>
       </div>
 
