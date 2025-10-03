@@ -1,11 +1,14 @@
 import styles from "./TrendingItem.module.css";
+import NoxeImg from "../../../assets/Noxe img.png"
 import { useGoToDetails } from "../../Hooks/useGoToDetails";
 
 export default function TrendingItem({ item, mediaType }) {
   const { goToDetails } = useGoToDetails();
 
   const baseUrlImg = "https://image.tmdb.org/t/p/w500";
-  const imageUrl = baseUrlImg + (item.poster_path || item.profile_path);
+   const imageUrl = item.poster_path || item.profile_path
+    ? baseUrlImg + (item.poster_path || item.profile_path)
+    : null;
 
   const altText = item.title
     ? `Poster of ${item.title}`
@@ -26,7 +29,15 @@ export default function TrendingItem({ item, mediaType }) {
         <div
           className={`${styles["card-hover"]} position-relative rounded-3 overflow-hidden shadow-sm`}
         >
-          <img className="w-100" src={imageUrl} alt={altText} />
+           <img
+            className="w-100"
+            src={imageUrl || NoxeImg}
+            alt={altText}
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = NoxeImg; 
+            }}
+          />
           {showRating && (
             <div
               className={`${styles["badg-shadow"]} position-absolute top-0 end-0 p-2 text-warning fw-semibold`}
