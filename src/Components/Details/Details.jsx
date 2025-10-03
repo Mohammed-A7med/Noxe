@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import ArrowLeftIcon from "../Icons/ArrowLeftIcon";
-import fallbackImg from "../../assets/Noxe img.png"
+
 export default function Details() {
   const [searchParams] = useSearchParams();
   const [details, setDetails] = useState({});
+  const [fallbackImg, setFallbackImg] = useState(null);
   const navigate = useNavigate();
 
   let currentId = searchParams.get("id");
@@ -23,7 +24,12 @@ export default function Details() {
 
   useEffect(() => {
     getTrindingDetails(mediaType);
-  }, []);
+
+    // Lazy load fallback image
+    import("../../assets/Noxe img.png").then((img) => {
+      setFallbackImg(img.default);
+    });
+  }, [mediaType]);
 
   return (
     <div className="row g-4">
@@ -34,6 +40,10 @@ export default function Details() {
             className="w-100"
             src={imagePath ? baseUrlImg + imagePath : fallbackImg}
             alt={details.title || details.name}
+            loading="lazy"
+            onError={(e) => {
+              if (fallbackImg) e.currentTarget.src = fallbackImg;
+            }}
           />
         </div>
       </div>
