@@ -1,0 +1,10 @@
+# Allow all search engines to crawl everything
+User-agent: *
+Allow: /
+
+# Block sensitive folders (optional, if you don’t want crawlers indexing them)
+Disallow: /node_modules/
+Disallow: /src/
+
+# Sitemap (replace with your actual domain and sitemap URL)
+Sitemap: https://yourdomain.com/sitemap.xml
