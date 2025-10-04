@@ -5,17 +5,3 @@ body {
   color: #fff !important;
   font-family: "Montserrat Alternates", sans-serif;
 }
-
-ul,
-li {
-  list-style-type: none;
-}
-
-.main-bg {
-  background-color: #24baef;
-}
-
-.brdr {
-  height: 2px;
-  background-color: #a8a8a83d;
-}

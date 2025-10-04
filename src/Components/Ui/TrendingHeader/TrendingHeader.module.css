@@ -2,3 +2,8 @@
   color: #9ca3af;
   font-size: 1.2rem;
 }
+
+.trending-border {
+  height: 2px;
+  background-color: #a8a8a83d;
+}
