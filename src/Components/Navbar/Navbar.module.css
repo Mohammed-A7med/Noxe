@@ -1,15 +1,56 @@
-.bgColor {
-  background-color: #108ebb;
+.bg-color-nav {
+  background-color: #00495c; 
 }
 
-li {
-  font-size: 20px;
+/* Brand (Logo) */
+.navbar-brand {
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-li a {
-  cursor: pointer;
+.navbar-brand:hover,
+.navbar-brand:focus {
+  color: #ffeb3b; 
 }
 
-.active {
-  color: whitesmoke !important;
+/* Nav links */
+.nav-link {
+  color: #ffffff; 
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #4dd0e1; 
+  text-shadow: 0 0 4px rgba(77, 208, 225, 0.6);
+}
+
+/* Active state */
+.nav-link.active,
+.navbar-brand.active {
+  color: #4dd0e1 !important; 
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(69, 68, 62, 0.6);
+  border-bottom: 1.5px solid white ;
+}
+
+/* Logout button styled like link */
+.nav-link[role="button"],
+button.nav-link {
+  color: #ffffff;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.nav-link[role="button"]:hover,
+button.nav-link:hover {
+  color: #ff5722; 
+  text-shadow: 0 0 6px rgba(255, 87, 34, 0.5);
 }
