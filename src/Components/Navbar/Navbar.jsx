@@ -12,15 +12,15 @@ import UseLogout from "../Hooks/UseLogout";
 export default function Navbar() {
   const { userToken } = useToken();
   const logout = UseLogout();
-  
-const basePath = "/dashboard";
 
-const navLinks = [
-  { to: `${basePath}/home`, label: "Home" },
-  { to: `${basePath}/movies`, label: "Movies" },
-  { to: `${basePath}/tvshows`, label: "TV Shows" },
-  { to: `${basePath}/people`, label: "People" },
-];
+  const basePath = "/dashboard";
+
+  const navLinks = [
+    { to: `${basePath}/home`, label: "Home" },
+    { to: `${basePath}/movies`, label: "Movies" },
+    { to: `${basePath}/tvshows`, label: "TV Shows" },
+    { to: `${basePath}/people`, label: "People" },
+  ];
 
   const socialLinks = [
     { label: "Facebook", icon: <FacebookIcon /> },
@@ -30,9 +30,14 @@ const navLinks = [
   ];
 
   return (
-    <nav className={`navbar navbar-expand-lg ${Styles.bgColor} sticky-top`}>
+    <nav
+      className={`navbar navbar-expand-lg ${Styles["bg-color-nav"]} sticky-top`}
+    >
       <div className="container-fluid">
-        <NavLink className="navbar-brand fw-bolder" to="/dashboard">
+        <NavLink
+          className={`${Styles["navbar-brand"]} navbar-brand fw-bolder`}
+          to="/dashboard"
+        >
           NOXE
         </NavLink>
         {/* Toggler button for mobile */}
@@ -57,7 +62,9 @@ const navLinks = [
                   <NavLink
                     to={to}
                     className={({ isActive }) =>
-                      `nav-link ${isActive ? Styles.active : ""}`
+                      `nav-link ${Styles["nav-link"]} ${
+                        isActive ? Styles.active : ""
+                      }`
                     }
                   >
                     {label}
@@ -75,7 +82,10 @@ const navLinks = [
             ))}
             {userToken && (
               <li className="nav-item">
-                <button onClick={logout} className="nav-link">
+                <button
+                  onClick={logout}
+                  className={`${Styles["nav-link"]} nav-link`}
+                >
                   Logout
                 </button>
               </li>

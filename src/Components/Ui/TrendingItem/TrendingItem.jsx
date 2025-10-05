@@ -1,14 +1,13 @@
 import styles from "./TrendingItem.module.css";
-import NoxeImg from "../../../assets/Noxe img.png"
+import NoxeImg from "../../../assets/Noxe.png";
 import { useGoToDetails } from "../../Hooks/useGoToDetails";
 
 export default function TrendingItem({ item, mediaType }) {
   const { goToDetails } = useGoToDetails();
 
-  const baseUrlImg = "https://image.tmdb.org/t/p/w500";
-   const imageUrl = item.poster_path || item.profile_path
-    ? baseUrlImg + (item.poster_path || item.profile_path)
-    : null;
+  const baseImg = "https://image.tmdb.org/t/p";
+  const imgPath = item.poster_path || item.profile_path;
+  const imageUrl = imgPath ? `${baseImg}/w300${imgPath}` : NoxeImg;
 
   const altText = item.title
     ? `Poster of ${item.title}`
@@ -29,13 +28,26 @@ export default function TrendingItem({ item, mediaType }) {
         <div
           className={`${styles["card-hover"]} position-relative rounded-3 overflow-hidden shadow-sm`}
         >
-           <img
-            className="w-100"
-            src={imageUrl || NoxeImg}
+          <img
+            className="w-100 h-100 object-fit-cover"
+            src={imageUrl}
+            srcSet={
+              imgPath
+                ? `
+              ${baseImg}/w154${imgPath} 154w,
+              ${baseImg}/w185${imgPath} 185w,
+              ${baseImg}/w300${imgPath} 300w,
+              ${baseImg}/w342${imgPath} 342w
+            `
+                : NoxeImg
+            }
+            sizes="(max-width: 576px) 50vw, (max-width: 992px) 33vw, 16vw"
             alt={altText}
             loading="lazy"
+            decoding="async"
             onError={(e) => {
-              e.currentTarget.src = NoxeImg; 
+              e.currentTarget.src = NoxeImg;
+              e.currentTarget.srcset = "";
             }}
           />
           {showRating && (

@@ -26,7 +26,7 @@ export default function Details() {
     getTrindingDetails(mediaType);
 
     // Lazy load fallback image
-    import("../../assets/Noxe img.png").then((img) => {
+    import("../../assets/Noxe.png").then((img) => {
       setFallbackImg(img.default);
     });
   }, [mediaType]);
