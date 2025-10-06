@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import { toastStyles } from "./Components/Constant/ToastStyles.js";
 
 import Login from "../src/Components/Auth/Login/Login.jsx";
@@ -15,7 +15,7 @@ import AuthLayout from "./Components/Layouts/AuthLayout.jsx";
 import MasterLayout from "./Components/Layouts/MasterLayout.jsx";
 
 function App() {
-  const routes = createBrowserRouter([
+  const routes = createHashRouter([
     {
       path: "",
       element: <AuthLayout />,
