@@ -1,6 +1,6 @@
 # 🎬 Noxe – Movie Streaming Web App
 
-A modern, high-performance movie streaming web application built with **Vite**, **React 19**, **Tailwind CSS**, and **Firebase**.  
+A modern, high-performance movie streaming web application built with **Vite**, **React 19**, **Bootstrap**, and **Firebase**.  
 Noxe allows users to explore movies, view detailed information, and manage authentication seamlessly — all within a clean and responsive UI.
 
 ---
