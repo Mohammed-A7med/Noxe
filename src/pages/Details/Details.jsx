@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
-import ArrowLeftIcon from "../Icons/ArrowLeftIcon";
+import ArrowLeftIcon from "../../Components/Icons/ArrowLeftIcon";
 
 export default function Details() {
   const [searchParams] = useSearchParams();
