@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useToken } from "../Context/Store";
+import { useToken } from "../store/Store";
 
 export default function UseLogout() {
   const { setUserToken } = useToken();

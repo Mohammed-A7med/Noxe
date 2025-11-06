@@ -1,7 +1,7 @@
-import { useTrending } from "../Hooks/useTrending";
-import Loading from "../Loading/Loading";
-import TrendingHeader from "../Ui/TrendingHeader/TrendingHeader";
-import TrendingItem from "../Ui/TrendingItem/TrendingItem";
+import { useTrending } from "../../hooks/useTrending";
+import Loading from "../../Components/Loading/Loading";
+import TrendingItem from "../../Components/Ui/TrendingItem/TrendingItem";
+import TrendingHeader from "../../Components/Ui/TrendingHeader/TrendingHeader";
 
 export default function People() {
   const { isLoading, trendingList } = useTrending("person");

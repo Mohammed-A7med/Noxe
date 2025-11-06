@@ -2,14 +2,14 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import { doSignInWithEmailAndPassword } from "../../Firebase/auth";
 import {
   emailValidation,
   PasswordValidation,
-} from "../../Constant/VALIDATIONS";
+} from "../../../constant/VALIDATIONS";
 import FormField from "../../Ui/FormField";
+import { useToken } from "../../../store/Store";
 import SpinnerIcon from "../../Icons/SpinnerIcon";
-import { useToken } from "../../Context/Store";
+import { doSignInWithEmailAndPassword } from "../../../firebase/auth";
 
 export default function Login() {
   const navigate = useNavigate();

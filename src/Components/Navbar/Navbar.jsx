@@ -6,8 +6,8 @@ import SpotifyIcon from "../Icons/SpotifyIcon";
 import YoutubeIcon from "../Icons/YoutubeIcon";
 import IconLink from "../Ui/IconLink";
 import Styles from "./Navbar.module.css";
-import { useToken } from "../Context/Store";
-import UseLogout from "../Hooks/UseLogout";
+import { useToken } from "../../store/Store";
+import UseLogout from "../../hooks/UseLogout";
 
 export default function Navbar() {
   const { userToken } = useToken();
