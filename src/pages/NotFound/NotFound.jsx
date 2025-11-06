@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ArrowLeftIcon from "../Icons/ArrowLeftIcon";
+import ArrowLeftIcon from "../../Components/Icons/ArrowLeftIcon";
 
 export default function NotFound() {
   const navigate = useNavigate();

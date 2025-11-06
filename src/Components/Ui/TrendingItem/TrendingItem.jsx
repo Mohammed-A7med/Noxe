@@ -1,6 +1,6 @@
 import styles from "./TrendingItem.module.css";
 import NoxeImg from "../../../assets/Noxe.png";
-import { useGoToDetails } from "../../Hooks/useGoToDetails";
+import { useGoToDetails } from "../../../hooks/useGoToDetails";
 
 export default function TrendingItem({ item, mediaType }) {
   const { goToDetails } = useGoToDetails();
