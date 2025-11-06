@@ -2,7 +2,7 @@ import { useTrending } from "../../hooks/useTrending";
 import Loading from "../../Components/Loading/Loading";
 import Movies from "../Movies/Movies";
 import Tvshows from "../Tvshows/Tvshows";
-import People from "../Tvshows/Tvshows";
+import People from "../People/People";
 
 export default function Home() {
   let { isLoading } = useTrending()
