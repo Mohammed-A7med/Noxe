@@ -28,36 +28,87 @@ Noxe allows users to explore movies, view detailed information, and manage authe
 ## 🧠 Tech Stack
 
 - **Frontend:** React 19 + Vite  
-- **Styling:** Tailwind CSS + Bootstrap 5  
+- **Styling:** Bootstrap 5  
 - **State & Forms:** React Hook Form  
 - **Routing:** React Router DOM  
 - **Notifications:** React Hot Toast  
 - **HTTP Client:** Axios  
 - **Backend/Auth:** Firebase  
-- **Linting:** ESLint with modern React rules  
+- **Linting** | ESLint (React best practices) |
 
 ---
 
 ## 📁 Project Structure
 
 src/
-├── Components/
-│ ├── About/ # About page
-│ ├── AuthContext/ # Authentication context provider
-│ ├── Context/ # Global state or store
-│ ├── Details/ # Movie details component
-│ ├── Firebase/ # Firebase configuration and authentication
-│ ├── Home/ # Homepage layout
-│ ├── Login/ # Login form
-│ ├── Logout/ # Logout component
-│ ├── Movies/ # Movie list and details
-│ ├── Navbar/ # Navbar and styles
-│ ├── Networks/ # Network info section
-│ ├── NotFound/ # 404 Page
-│ ├── People/ # Cast/People list
-│ ├── Register/ # User registration form
-│ └── Tvshows/ # TV shows page
+├── Components
+│   ├── Auth
+│   │   ├── AuthContext
+│   │   ├── Login
+│   │   └── Register
+│   ├── Icons
+│   ├── Loading
+│   ├── Navbar
+│   ├── ProtectedRoute
+│   └── Ui
 │
-├── App.jsx # Root component
-├── App.css # Global styles
-└── main.jsx # App entry point
+├── assets
+├── constant
+│   ├── ToastStyles.js
+│   └── VALIDATIONS.js
+│
+├── firebase
+│   ├── auth.js
+│   └── firebase.js
+│
+├── hooks
+│   ├── useLogout.js
+│   ├── useGoToDetails.js
+│   └── useTrending.js
+│
+├── layouts
+│   ├── AuthLayout.jsx
+│   └── MasterLayout.jsx
+│
+├── pages
+│   ├── Details
+│   ├── Home
+│   ├── Movies
+│   ├── NotFound
+│   ├── People
+│   └── Tvshows
+│
+└── store
+    └── Store.jsx
+
+
+---
+
+## ⚙️ **Getting Started**
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-username/noxe.git
+cd noxe
+
+
+### 2️⃣ Install Dependencies
+npm install
+
+
+### 3️⃣ Create an .env File
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+
+4️⃣ Start the Development Server
+npm run dev
+
+
+## 👨‍💻 **Author**
+
+**Mohamed Ahmed**  
+Frontend Developer specializing in **React**, **TypeScript**, and **modern UI development**.
