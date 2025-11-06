@@ -7,10 +7,10 @@ import {
   emailValidation,
   NameValidation,
   PasswordValidation,
-} from "../../Constant/VALIDATIONS";
-import { doCreateUserWithEmailAndPassword } from "../../Firebase/auth";
+} from "../../../constant/VALIDATIONS";
 import FormField from "../../Ui/FormField";
 import SpinnerIcon from "../../Icons/SpinnerIcon";
+import { doCreateUserWithEmailAndPassword } from "../../../firebase/auth";
 
 export default function Register() {
   const navigate = useNavigate();

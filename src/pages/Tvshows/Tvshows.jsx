@@ -1,7 +1,7 @@
 import { useTrending } from "../../hooks/useTrending";
-import Loading from "../Loading/Loading";
-import TrendingHeader from "../Ui/TrendingHeader/TrendingHeader";
-import TrendingItem from "../Ui/TrendingItem/TrendingItem";
+import Loading from "../../Components/Loading/Loading";
+import TrendingItem from "../../Components/Ui/TrendingItem/TrendingItem";
+import TrendingHeader from "../../Components/Ui/TrendingHeader/TrendingHeader";
 
 export default function Tvshows() {
   const { isLoading, trendingList } = useTrending("tv");

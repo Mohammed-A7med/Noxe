@@ -1,18 +1,18 @@
 import { Toaster } from "react-hot-toast";
 import { RouterProvider, createHashRouter } from "react-router-dom";
-import { toastStyles } from "./Components/Constant/ToastStyles.js";
+import { toastStyles } from "../src/constant/ToastStyles.js";
 
 import Login from "../src/Components/Auth/Login/Login.jsx";
 import Register from "../src/Components/Auth/Register/Register.jsx";
-import Details from "./Components/Details/Details.jsx";
-import Home from "./Components/Home/Home.jsx";
-import Movies from "./Components/Movies/Movies.jsx";
-import NotFound from "./Components/NotFound/NotFound.jsx";
-import People from "./Components/People/People.jsx";
+import Details from "../src/pages/Details/Details";
+import Home from "../src/pages/Home/Home.jsx";
+import Movies from "../src/pages/Movies/Movies.jsx";
+import NotFound from "../src/pages/NotFound/NotFound.jsx";
+import People from "../src/pages/People/People.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute.jsx";
-import Tvshows from "./Components/Tvshows/Tvshows.jsx";
-import AuthLayout from "./Components/Layouts/AuthLayout.jsx";
-import MasterLayout from "./Components/Layouts/MasterLayout.jsx";
+import Tvshows from "../src/pages/Tvshows/Tvshows.jsx";
+import AuthLayout from "./layouts/AuthLayout.jsx";
+import MasterLayout from "./layouts/MasterLayout";
 
 function App() {
   const routes = createHashRouter([
