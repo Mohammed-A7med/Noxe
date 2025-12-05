@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from "react";
 import { NavLink } from "react-router-dom";
 
 import FacebookIcon from "../Icons/FacebookIcon";
@@ -9,25 +10,55 @@ import Styles from "./Navbar.module.css";
 import { useToken } from "../../store/Store";
 import UseLogout from "../../hooks/UseLogout";
 
+// Constants defined outside component (created once, not on every render)
+const MOBILE_BREAKPOINT = 768;
+const BASE_PATH = "/dashboard";
+
+const NAV_LINKS = [
+  { to: `${BASE_PATH}/home`, label: "Home" },
+  { to: `${BASE_PATH}/movies`, label: "Movies" },
+  { to: `${BASE_PATH}/tvshows`, label: "TV Shows" },
+  { to: `${BASE_PATH}/people`, label: "People" },
+];
+
+// Store icon components (not JSX elements) to avoid recreating on every render
+const SOCIAL_LINKS = [
+  { label: "Facebook", icon: FacebookIcon },
+  { label: "Spotify", icon: SpotifyIcon },
+  { label: "Instagram", icon: InstagramIcon },
+  { label: "YouTube", icon: YoutubeIcon },
+];
+
 export default function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < MOBILE_BREAKPOINT
+  );
   const { userToken } = useToken();
   const logout = UseLogout();
 
-  const basePath = "/dashboard";
+  // Track window resize to update isMobile state
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < MOBILE_BREAKPOINT;
+      setIsMobile(mobile);
 
-  const navLinks = [
-    { to: `${basePath}/home`, label: "Home" },
-    { to: `${basePath}/movies`, label: "Movies" },
-    { to: `${basePath}/tvshows`, label: "TV Shows" },
-    { to: `${basePath}/people`, label: "People" },
-  ];
+      // Auto-close menu when switching to desktop
+      if (!mobile && isMenuOpen) {
+        setIsMenuOpen(false);
+      }
+    };
 
-  const socialLinks = [
-    { label: "Facebook", icon: <FacebookIcon /> },
-    { label: "Spotify", icon: <SpotifyIcon /> },
-    { label: "Instagram", icon: <InstagramIcon /> },
-    { label: "YouTube", icon: <YoutubeIcon /> },
-  ];
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMenuOpen]);
+
+  // Memoized close function
+  const closeNavbar = useCallback(() => {
+    if (isMobile) {
+      setIsMenuOpen(false);
+    }
+  }, [isMobile]);
 
   return (
     <nav
@@ -37,29 +68,33 @@ export default function Navbar() {
         <NavLink
           className={`${Styles["navbar-brand"]} navbar-brand fw-bolder`}
           to="/dashboard"
+          onClick={closeNavbar}
         >
           NOXE
         </NavLink>
-        {/* Toggler button for mobile */}
+
+        {/* Toggler button for mobile (manual control) */}
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
+          aria-expanded={isMenuOpen ? "true" : "false"}
           aria-label="Toggle navigation"
+          onClick={() => setIsMenuOpen((prev) => !prev)}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className={`collapse navbar-collapse ${isMenuOpen ? "show" : ""}`}
+          id="navbarSupportedContent"
+        >
           {/* Render main navigation links only if user is logged in */}
           {userToken && (
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {navLinks.map(({ to, label }) => (
+              {NAV_LINKS.map(({ to, label }) => (
                 <li key={label} className="nav-item">
                   <NavLink
+                    onClick={closeNavbar}
                     to={to}
                     className={({ isActive }) =>
                       `nav-link ${Styles["nav-link"]} ${
@@ -75,11 +110,12 @@ export default function Navbar() {
           )}
           {/* Social icons and logout button */}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex flex-row gap-2 gap-md-0">
-            {socialLinks.map(({ label, icon }) => (
+            {SOCIAL_LINKS.map(({ label, icon }) => (
               <IconLink key={label} label={label}>
                 {icon}
               </IconLink>
             ))}
+
             {userToken && (
               <li className="nav-item">
                 <button

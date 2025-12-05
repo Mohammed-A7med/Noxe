@@ -11,7 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
+
+# Environment configuration files
+# These contain private keys and should remain local
+# .env // 
 
 # Editor directories and files
 .vscode/*
