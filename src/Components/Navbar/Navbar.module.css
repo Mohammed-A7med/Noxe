@@ -38,6 +38,13 @@
   border-bottom: 1.5px solid white ;
 }
 
+@media (max-width: 767.98px) {
+  .nav-link.active,
+  .navbar-brand.active {
+    border-bottom: none !important;
+  }
+}
+
 /* Logout button styled like link */
 .nav-link[role="button"],
 button.nav-link {
